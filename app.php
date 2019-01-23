@@ -20,11 +20,14 @@ if (isset($_POST['submit'])){
     if (!$result){
         $name=$_POST['name'];
         $surname=$_POST['surname'];
-        $password=$_POST['password'];
-        $age=$_POST['age'];
-        $query="INSERT INTO user (user_name, password, first_name, last_name, age) values ('$username', '$password', '$name', '$surname', '$age')";
-        mysqli_query($con, $query);
-        echo 'User has been created successfully ';
+        if ($_POST['password']==$_POST['password2']){
+            $password=$_POST['password'];
+            $age=$_POST['age'];
+            $query="INSERT INTO user (user_name, password, first_name, last_name, age) values ('$username', '$password', '$name', '$surname', '$age')";
+            mysqli_query($con, $query);
+            echo 'User has been created successfully ';
+        }else echo 'Passwords dont match';
+
     }else echo 'This username is already used, try another one';
 
 }
@@ -70,7 +73,7 @@ mysqli_close($con);
         <input type="password" name="password" id="signPassword">
         <input type="submit" value="Log in" name="logIn">
     </form>
-
+    <h2></h2>
 </div>
 <div id="reg">
     <h1>Sign up</h1>
@@ -87,7 +90,9 @@ mysqli_close($con);
         <input type="text" id="gender" name="gender"><br>
         <label for="password">Password</label>
         <input type="password" name="password"><br>
-     
+        <label for="password2">Repeat password</label>
+        <input type="password2" name="password2"><br>
+
 
         <input type="submit" name="submit" value="Sign up">
     </form>
