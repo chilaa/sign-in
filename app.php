@@ -43,6 +43,17 @@ if (isset($_POST['logIn'])){
         }else echo 'wrong password';
     }else echo 'There is not such username, sign up';
 }
+
+if (isset($_POST['showAll'])){
+    require_once 'just.php';
+    $data=getTable();
+    foreach ($data as $item){
+        foreach ($item as $column=>$value){
+            print_r($column.': '.$value.'<br>');
+        }
+        echo '<br>';
+    }
+}
 mysqli_close($con);
 
 ?>
@@ -73,7 +84,10 @@ mysqli_close($con);
         <input type="password" name="password" id="signPassword">
         <input type="submit" value="Log in" name="logIn">
     </form>
-    <h2></h2>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <input type="submit" name="showAll" value="Show all">
+
+    </form>
 </div>
 <div id="reg">
     <h1>Sign up</h1>
